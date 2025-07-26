@@ -1,0 +1,15 @@
+.header-container {
+  &__search-project {
+    input {
+      width: 21.875rem;
+    }
+  }
+
+  @media (max-width: 488px) {
+    &__search-project {
+      input {
+        width: 100%;
+      }
+    }
+  }
+}

@@ -1,11 +1,13 @@
 import {ChangeDetectionStrategy, Component, signal} from '@angular/core';
 import {Menubar} from 'primeng/menubar';
 import {MenuItem} from 'primeng/api';
+import {InputText} from 'primeng/inputtext';
 
 @Component({
   selector: 'layout-header',
   imports: [
-    Menubar
+    Menubar,
+    InputText
   ],
   templateUrl: './header.html',
   styleUrl: './header.scss',
@@ -26,13 +28,13 @@ export class Header {
       icon: 'pi pi-search',
       items: [
         {
-          label: 'Components',
-          icon: 'pi pi-bolt'
+          label: 'All projects',
+          icon: 'pi pi-server'
         },
         {
-          label: 'Blocks',
-          icon: 'pi pi-server'
-        }
+          label: 'Add project',
+          icon: 'pi pi-plus'
+        },
       ],
     }
   ]);

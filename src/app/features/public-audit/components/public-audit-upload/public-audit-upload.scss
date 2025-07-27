@@ -1,0 +1,15 @@
+.audit-container {
+  display: grid;
+  place-items: center;
+  min-height: 80vh;
+  padding: 1rem;
+
+  &__wrapper {
+    ::ng-deep {
+      .p-button {
+        margin-top: 1.25rem;
+        width: 18.75rem;
+      }
+    }
+  }
+}

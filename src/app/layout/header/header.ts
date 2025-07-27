@@ -2,12 +2,13 @@ import {ChangeDetectionStrategy, Component, signal} from '@angular/core';
 import {Menubar} from 'primeng/menubar';
 import {MenuItem} from 'primeng/api';
 import {InputText} from 'primeng/inputtext';
+import {publicAuditRoutes} from '../../features/public-audit/public-audit.routes';
 
 @Component({
   selector: 'layout-header',
   imports: [
     Menubar,
-    InputText
+    InputText,
   ],
   templateUrl: './header.html',
   styleUrl: './header.scss',
@@ -17,7 +18,8 @@ export class Header {
   links = signal<MenuItem[]>([
     {
       label: 'Home',
-      icon: 'pi pi-home'
+      icon: 'pi pi-home',
+      routerLink: '/'
     },
     {
       label: 'Features',
@@ -38,4 +40,5 @@ export class Header {
       ],
     }
   ]);
+  protected readonly publicAuditRoutes = publicAuditRoutes;
 }

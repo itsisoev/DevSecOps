@@ -1,0 +1,70 @@
+.audit-container {
+  max-width: 700px;
+  margin: 20px auto;
+  font-family: Arial, sans-serif;
+
+  h2 {
+    text-align: center;
+  }
+
+  input[type='file'] {
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  button {
+    display: block;
+    margin-bottom: 20px;
+    padding: 8px 16px;
+    font-size: 16px;
+  }
+
+  .error-message {
+    color: red;
+    margin-bottom: 15px;
+  }
+
+  .results {
+    table {
+      width: 100%;
+      border-collapse: collapse;
+
+      th, td {
+        padding: 8px 12px;
+        border: 1px solid #ddd;
+      }
+
+      th {
+        background-color: #f0f0f0;
+      }
+
+      tr.update {
+        background-color: #fff4e5;
+      }
+    }
+  }
+}
+
+.results table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+
+  th, td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+  }
+
+  th {
+    background: #f4f4f4;
+  }
+
+  tr.update {
+    background-color: #fff7e6; // светло-жёлтый для обновлений
+  }
+
+  tr.vulnerable {
+    background-color: #ffe6e6; // светло-красный для уязвимых
+  }
+}

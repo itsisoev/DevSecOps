@@ -26,12 +26,13 @@ export class Header {
       icon: 'pi pi-star'
     },
     {
-      label: 'Projects',
+      label: 'Repositories',
       icon: 'pi pi-search',
       items: [
         {
-          label: 'All projects',
-          icon: 'pi pi-server'
+          label: 'All Repositories',
+          icon: 'pi pi-server',
+          routerLink: '/repositories',
         },
         {
           label: 'Add project',

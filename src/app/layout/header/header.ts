@@ -21,10 +21,7 @@ export class Header {
       icon: 'pi pi-home',
       routerLink: '/'
     },
-    {
-      label: 'Избранные',
-      icon: 'pi pi-star'
-    },
+
     {
       label: 'Репозитории',
       icon: 'pi pi-search',
@@ -35,8 +32,8 @@ export class Header {
           routerLink: '/repositories',
         },
         {
-          label: 'Добавить репозиторию',
-          icon: 'pi pi-plus'
+          label: 'Избранные репозитории',
+          icon: 'pi pi-star'
         },
       ],
     }

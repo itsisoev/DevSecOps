@@ -1,0 +1,45 @@
+<div class="all-repositories-container">
+  <p-table
+    [value]="isLoading() ? skeletonItems : repos()"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Имя</th>
+        <th>Полное имя</th>
+        <th>Приватный</th>
+        <th>Язык</th>
+        <th>Владелец</th>
+
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-repo>
+      @if (!isLoading()) {
+        <tr>
+          <td>{{ repo.name }}</td>
+          <td>{{ repo.full_name }}</td>
+          <td>{{ repo.private ? 'Да' : 'Нет' }}</td>
+          <td>{{ repo.language }}</td>
+          <td>{{ repo.owner.login }}</td>
+        </tr>
+      } @else {
+        <tr>
+          <td><p-skeleton height="1.5rem" width="100%"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem" width="80%"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem" width="60%"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem" width="70%"></p-skeleton></td>
+          <td><p-skeleton height="1.5rem" width="90%"></p-skeleton></td>
+        </tr>
+      }
+    </ng-template>
+
+
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="4">Репозитории не найдены</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+<p-toast [breakpoints]="{ '920px': { width: '100%', right: '0', left: '0' } }"/>

@@ -6,6 +6,11 @@ export const repositoriesRoutes: Routes = [
   {
     path: '',
     component: Repositories,
-    children: []
+    children: [
+      {
+        path: '',
+        loadComponent: () => import('./components/all-repositories/all-repositories').then(m => m.AllRepositories)
+      }
+    ]
   }
 ]

@@ -1,25 +1,15 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {GithubRepo, RepositoriesService} from './service/repositories';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {RouterOutlet} from '@angular/router';
 
 @Component({
   selector: 'app-repositories',
-  imports: [],
+  imports: [
+    RouterOutlet
+  ],
   templateUrl: './repositories.html',
   styleUrl: './repositories.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+
 })
-export class Repositories implements OnInit {
-  repos: GithubRepo[] = [];
-
-  constructor(private reposService: RepositoriesService) {}
-
-  ngOnInit() {
-    this.reposService.getUserRepos().subscribe({
-      next: data => this.repos = data,
-      error: err => {
-        console.error('Ошибка при загрузке репозиториев', err);
-        this.repos = [];
-      }
-    });
-  }
+export class Repositories {
 }

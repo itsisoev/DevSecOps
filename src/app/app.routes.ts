@@ -12,12 +12,16 @@ export const routes: Routes = [
     loadChildren: () => import('./features/auth/auth.routes').then(m => m.authRoutes)
   },
   {
-    canActivate: [AuthGuard],
     path: '',
     children: [
       {
         path: '',
         loadComponent: () => import('./features/landing/landing').then(m => m.Landing)
+      },
+      {
+        canActivate: [AuthGuard],
+        path: 'repositories',
+        loadChildren: () => import('./features/repositories/repositories.routes').then(m => m.repositoriesRoutes)
       }
     ]
   },

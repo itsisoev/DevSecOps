@@ -1,1 +1,27 @@
-<button (click)="login()">Войти через GitHub</button>
+<div class="auth-container">
+  <p-card class="auth-container__card">
+    <div class="auth-container__card-logo">
+      <i class="pi pi-shield" style="font-size: 3rem; color: #3B82F6"></i>
+    </div>
+
+    <h1 class="auth-container__card-title">Анализ зависимостей</h1>
+    <p class="auth-container__card-subtitle">
+      Войдите через GitHub чтобы получить полный доступ к анализу вашего проекта
+    </p>
+
+    <p-button
+      label="Войти через GitHub"
+      icon="pi pi-github"
+      styleClass="p-button-lg"
+      (click)="login()">
+    </p-button>
+
+    <p-divider [align]="'center'">
+      <span class="p-tag">или</span>
+    </p-divider>
+
+    <p-message severity="info" [closable]="false">
+      Мы запрашиваем только минимальные права для анализа ваших репозиториев
+    </p-message>
+  </p-card>
+</div>

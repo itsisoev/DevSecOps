@@ -1,9 +1,51 @@
 <div class="landing-container">
+  <p-toast></p-toast>
+
   <div class="landing-container__wrapper">
-    <div class="landing-container__links">
+    <p-card class="landing-container__info" [@fadeInUp]>
+      <div class="landing-container__info-wrapper">
+        <h2 class="landing-container__info-title">
+          Анализ зависимостей вашего проекта
+        </h2>
+        <p class="landing-container__info-description">
+          Наш сервис помогает разработчикам держать проект в безопасности и актуальности.
+          Просто загрузите ваш <code>package.json</code> или подключите GitHub-репозиторий —
+          и мы покажем:
+        </p>
+
+        <p-listbox
+          [options]="features()"
+          class="landing-container__listbox"
+        >
+          <ng-template let-feature pTemplate="item">
+            <div class="landing-container__feature-item">
+              <i [class]="feature.icon" [style.color]="feature.color"></i>
+              <div>{{ feature.label }}</div>
+            </div>
+          </ng-template>
+        </p-listbox>
+
+        <p-message severity="info" class="landing-container__info-cta">
+          Проверь свой проект прямо сейчас и убедись, что он в безопасности!
+        </p-message>
+      </div>
+    </p-card>
+
+    <div class="landing-container__links" [@fadeInUp]>
       <a [routerLink]="['/public-audit']">
-        <p-button icon="pi pi-arrow-right" iconPos="right" label="Start Demo"/>
+        <p-button
+          icon="pi pi-arrow-right"
+          iconPos="right"
+          label="Начать"
+
+        />
       </a>
+      <p-button
+        label="Читать дальше"
+        icon="pi pi-info-circle"
+        styleClass="p-button-outlined"
+        (click)="showInfo()"
+      ></p-button>
     </div>
   </div>
 </div>

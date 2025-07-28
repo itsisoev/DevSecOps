@@ -17,25 +17,25 @@ import {publicAuditRoutes} from '../../features/public-audit/public-audit.routes
 export class Header {
   links = signal<MenuItem[]>([
     {
-      label: 'Home',
+      label: 'Главная страница',
       icon: 'pi pi-home',
       routerLink: '/'
     },
     {
-      label: 'Features',
+      label: 'Избранные',
       icon: 'pi pi-star'
     },
     {
-      label: 'Repositories',
+      label: 'Репозитории',
       icon: 'pi pi-search',
       items: [
         {
-          label: 'All Repositories',
+          label: 'Все репозитории',
           icon: 'pi pi-server',
           routerLink: '/repositories',
         },
         {
-          label: 'Add project',
+          label: 'Добавить репозиторию',
           icon: 'pi pi-plus'
         },
       ],

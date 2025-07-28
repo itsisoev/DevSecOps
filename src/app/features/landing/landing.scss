@@ -1,15 +1,120 @@
 .landing-container {
+  position: relative;
+  color: #e6e6e6;
+  padding: 2rem;
+
   &__wrapper {
     display: flex;
     align-items: center;
     flex-direction: column;
     justify-content: center;
-    margin-top: 9.375rem;
+  }
+
+  &__info {
+    background: var(--surface-card);
+    border-radius: 12px;
+    padding: 2.5rem;
+    margin-bottom: 3rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    transform: translateY(20px);
+    opacity: 0;
+    animation: fadeInUp 0.8s forwards 0.3s;
+
+    &-wrapper {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    &-title {
+      font-size: 2.2rem;
+      margin-bottom: 1.5rem;
+      color: var(--primary-color);
+    }
+
+    &-description {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+      color: var(--text-color-secondary);
+    }
+
+    &-cta {
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: var(--primary-color);
+      margin-top: 2rem;
+    }
+
+    code {
+      background: rgba(0, 0, 0, 0.1);
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+      color: var(--primary-color);
+      font-family: monospace;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  &__listbox {
+    width: 100%;
+    background: transparent !important;
+    border: none !important;
+
+
+    .p-listbox-list-wrapper {
+      max-height: none !important;
+    }
+  }
+
+  &__feature-item {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+
+    i {
+      margin-right: 0.5rem;
+    }
   }
 
   &__links {
-    gap: 3.125rem;
+    gap: 2rem;
     display: flex;
     align-items: center;
+    transform: translateY(20px);
+    opacity: 0;
+    animation: fadeInUp 0.8s forwards 0.6s;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .landing-container {
+    &__wrapper {
+      margin-top: 3rem;
+    }
+
+    &__info {
+      padding: 1.5rem;
+
+      &-title {
+        font-size: 1.8rem;
+      }
+    }
+
+    &__links {
+      flex-direction: column;
+      gap: 1rem;
+    }
   }
 }

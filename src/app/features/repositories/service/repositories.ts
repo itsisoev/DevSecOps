@@ -22,4 +22,8 @@ export class RepositoriesService {
   getUserRepos(): Observable<GithubRepo[]> {
     return this.http.get<GithubRepo[]>(`${this.baseAPI}/github/repos`);
   }
+
+  analyzeRepoPackage(owner: string, repo: string): Observable<any> {
+    return this.http.get(`${this.baseAPI}/audit/github/${owner}/${repo}`);
+  }
 }

@@ -36,7 +36,7 @@
 
     <ng-template pTemplate="body" let-repo>
       @if (!isLoading()) {
-        <tr>
+        <tr (click)="onRepoClick(repo)">
           <td>{{ repo.name }}</td>
           <td>{{ repo.full_name }}</td>
           <td>{{ repo.private ? 'Да' : 'Нет' }}</td>

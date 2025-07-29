@@ -1,11 +1,12 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit, signal } from '@angular/core';
-import { MessageService, PrimeTemplate } from 'primeng/api';
-import { TableModule } from 'primeng/table';
-import { Toast } from 'primeng/toast';
-import { GithubRepo, RepositoriesService } from '../../service/repositories';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { Skeleton } from 'primeng/skeleton';
-import { catchError, finalize, of } from 'rxjs';
+import {ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit, signal} from '@angular/core';
+import {MessageService, PrimeTemplate} from 'primeng/api';
+import {TableModule} from 'primeng/table';
+import {Toast} from 'primeng/toast';
+import {GithubRepo, RepositoriesService} from '../../service/repositories';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import {Skeleton} from 'primeng/skeleton';
+import {catchError, finalize, of} from 'rxjs';
+import {Router} from '@angular/router';
 
 const SKELETON_ITEMS_COUNT = 10;
 
@@ -21,6 +22,7 @@ export class AllRepositories implements OnInit {
   private readonly reposService = inject(RepositoriesService);
   private readonly destroyRef = inject(DestroyRef);
   private readonly messageService = inject(MessageService);
+  private readonly router = inject(Router);
 
   repos = signal<GithubRepo[]>([]);
   isLoading = signal<boolean>(false);
@@ -58,13 +60,18 @@ export class AllRepositories implements OnInit {
       });
   }
 
+  onRepoClick(repo: GithubRepo) {
+    const {owner, name} = repo;
+    this.router.navigate(['repositories', 'analyze', owner.login, name]);
+  }
+
   private generateSkeletonItems(): GithubRepo[] {
-    return Array.from({ length: SKELETON_ITEMS_COUNT }, () => ({
+    return Array.from({length: SKELETON_ITEMS_COUNT}, () => ({
       name: '',
       full_name: '',
       private: false,
       language: '',
-      owner: { login: '' },
+      owner: {login: ''},
     }));
   }
 }

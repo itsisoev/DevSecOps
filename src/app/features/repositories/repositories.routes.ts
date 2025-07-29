@@ -1,6 +1,5 @@
-import {Routes} from "@angular/router";
+import {Routes} from '@angular/router';
 import {Repositories} from './repositories';
-
 
 export const repositoriesRoutes: Routes = [
   {
@@ -9,7 +8,13 @@ export const repositoriesRoutes: Routes = [
     children: [
       {
         path: '',
-        loadComponent: () => import('./components/all-repositories/all-repositories').then(m => m.AllRepositories)
+        loadComponent: () =>
+          import('./components/all-repositories/all-repositories').then(m => m.AllRepositories)
+      },
+      {
+        path: 'analyze/:owner/:repo',
+        loadComponent: () =>
+          import('./components/repo-analysis/repo-analysis').then(m => m.RepoAnalysis),
       }
     ]
   }

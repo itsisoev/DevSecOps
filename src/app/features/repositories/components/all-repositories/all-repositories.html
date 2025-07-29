@@ -4,12 +4,33 @@
   >
     <ng-template pTemplate="header">
       <tr>
-        <th>Имя</th>
-        <th>Полное имя</th>
-        <th>Приватный</th>
-        <th>Язык</th>
-        <th>Владелец</th>
-
+        <th pSortableColumn="name">
+          <div class="flex items-center gap-2">
+            Имя репозитория
+            <p-sortIcon field="name"/>
+          </div>
+        </th>
+        <th>
+          Полное имя репозитория
+        </th>
+        <th pSortableColumn="private">
+          <div class="flex items-center gap-2">
+            Приватный
+            <p-sortIcon field="private"/>
+          </div>
+        </th>
+        <th  pSortableColumn="language">
+          <div class="flex items-center gap-2">
+            Язык
+            <p-sortIcon field="language"/>
+          </div>
+        </th>
+        <th pSortableColumn="owner.login">
+          <div class="flex items-center gap-2">
+            Владелец
+            <p-sortIcon field="owner.login"/>
+          </div>
+        </th>
       </tr>
     </ng-template>
 
@@ -24,11 +45,21 @@
         </tr>
       } @else {
         <tr>
-          <td><p-skeleton height="1.5rem" width="100%"></p-skeleton></td>
-          <td><p-skeleton height="1.5rem" width="80%"></p-skeleton></td>
-          <td><p-skeleton height="1.5rem" width="60%"></p-skeleton></td>
-          <td><p-skeleton height="1.5rem" width="70%"></p-skeleton></td>
-          <td><p-skeleton height="1.5rem" width="90%"></p-skeleton></td>
+          <td>
+            <p-skeleton height="1.5rem" width="100%"></p-skeleton>
+          </td>
+          <td>
+            <p-skeleton height="1.5rem" width="80%"></p-skeleton>
+          </td>
+          <td>
+            <p-skeleton height="1.5rem" width="60%"></p-skeleton>
+          </td>
+          <td>
+            <p-skeleton height="1.5rem" width="70%"></p-skeleton>
+          </td>
+          <td>
+            <p-skeleton height="1.5rem" width="90%"></p-skeleton>
+          </td>
         </tr>
       }
     </ng-template>

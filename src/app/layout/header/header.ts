@@ -1,14 +1,12 @@
 import {ChangeDetectionStrategy, Component, signal} from '@angular/core';
 import {Menubar} from 'primeng/menubar';
 import {MenuItem} from 'primeng/api';
-import {InputText} from 'primeng/inputtext';
 import {publicAuditRoutes} from '../../features/public-audit/public-audit.routes';
 
 @Component({
   selector: 'layout-header',
   imports: [
     Menubar,
-    InputText,
   ],
   templateUrl: './header.html',
   styleUrl: './header.scss',

@@ -1,0 +1,6 @@
+table {
+  tr:hover {
+    background-color: var(--surface-hover);
+    transition: background-color 0.2s ease-in-out;
+  }
+}

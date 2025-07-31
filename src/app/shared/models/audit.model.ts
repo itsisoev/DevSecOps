@@ -12,4 +12,5 @@ export interface AuditResponse {
   hash: string;
   message: string;
   results: AuditResult[];
+  projectName: string;
 }

@@ -26,4 +26,10 @@ export class RepositoriesService {
   analyzeRepoPackage(owner: string, repo: string): Observable<any> {
     return this.http.get(`${this.baseAPI}/audit/github/${owner}/${repo}`);
   }
+
+  downloadPackagePdf(owner: string, repo: string): Observable<Blob> {
+    return this.http.get(`${this.baseAPI}/audit/github/${owner}/${repo}/pdf`, {
+      responseType: 'blob',
+    });
+  }
 }

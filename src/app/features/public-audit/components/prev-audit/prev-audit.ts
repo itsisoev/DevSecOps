@@ -6,13 +6,15 @@ import {Tag} from 'primeng/tag';
 import {Toast} from 'primeng/toast';
 import {MessageService} from 'primeng/api';
 import {AuditResponse} from '../../../../shared/models/audit.model';
+import {Button} from 'primeng/button';
 
 @Component({
   selector: 'app-prev-audit',
   imports: [
     TableModule,
     Tag,
-    Toast
+    Toast,
+    Button,
   ],
   templateUrl: './prev-audit.html',
   styleUrl: './prev-audit.scss',
@@ -28,6 +30,7 @@ export class PrevAudit implements OnInit {
     hash: '',
     message: '',
     results: [],
+    projectName: '',
   })
   isLoading = signal<boolean>(false);
 

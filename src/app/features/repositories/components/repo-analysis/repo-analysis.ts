@@ -7,6 +7,7 @@ import {TableModule} from 'primeng/table';
 import {Tag} from 'primeng/tag';
 import {Skeleton} from 'primeng/skeleton';
 import {AuditResponse, AuditResult} from '../../../../shared/models/audit.model';
+import {Button} from 'primeng/button';
 
 const SKELETON_ITEMS_COUNT = 10;
 
@@ -15,7 +16,8 @@ const SKELETON_ITEMS_COUNT = 10;
   imports: [
     TableModule,
     Tag,
-    Skeleton
+    Skeleton,
+    Button
   ],
   templateUrl: './repo-analysis.html',
   styleUrl: './repo-analysis.scss',
@@ -28,7 +30,8 @@ export class RepoAnalysis implements OnInit {
   private readonly messageService = inject(MessageService);
 
   isLoading = signal<boolean>(false);
-  auditResult = signal<AuditResponse>({results: [], message: '', hash: ''});
+  auditResult = signal<AuditResponse>({projectName: '', results: [], message: '', hash: ''});
+  downloadInProgress = signal(false);
   skeletonItems = this.generateSkeletonItems();
 
   ngOnInit() {
@@ -99,4 +102,32 @@ export class RepoAnalysis implements OnInit {
     }));
   }
 
+  downloadPdf() {
+    const owner = this.route.snapshot.paramMap.get('owner');
+    const repo = this.route.snapshot.paramMap.get('repo');
+
+    if (!owner || !repo) {
+      this.messageService.add({severity: 'error', summary: 'Ошибка', detail: 'Некорректный путь'});
+      return;
+    }
+
+    this.downloadInProgress.set(true);
+
+    this.repoService.downloadPackagePdf(owner, repo).pipe(
+      finalize(() => this.downloadInProgress.set(false))
+    ).subscribe({
+      next: (blob) => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `${repo}_audit_report.pdf`;
+        a.click();
+        window.URL.revokeObjectURL(url);
+        this.messageService.add({severity: 'success', summary: 'Готово', detail: 'PDF скачан'});
+      },
+      error: () => {
+        this.messageService.add({severity: 'error', summary: 'Ошибка', detail: 'Не удалось скачать PDF'});
+      }
+    });
+  }
 }

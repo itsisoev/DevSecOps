@@ -65,5 +65,26 @@ export class PrevAudit implements OnInit {
         return 'warning';
     }
   }
+
+  formatSize(size?: number): string {
+    if (!size) return '—';
+    const kb = size / 1024;
+    return kb > 1024
+      ? `${(kb / 1024).toFixed(2)} MB`
+      : `${kb.toFixed(1)} KB`;
+  }
+
+  getSizeSeverity(label?: string): 'success' | 'warning' | 'danger' {
+    switch (label) {
+      case 'small':
+        return 'success';
+      case 'medium':
+        return 'warning';
+      case 'large':
+        return 'danger';
+      default:
+        return 'warning';
+    }
+  }
 }
 

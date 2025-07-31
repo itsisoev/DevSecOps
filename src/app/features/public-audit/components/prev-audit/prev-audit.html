@@ -13,6 +13,7 @@
             <th>Последняя версия</th>
             <th>Нужен апдейт</th>
             <th>Статус</th>
+            <th>Размер</th>
           </tr>
         </ng-template>
 
@@ -33,6 +34,23 @@
                 [severity]="getStatusSeverity(dep.status)"
               ></p-tag>
             </td>
+            <td>
+              <span>{{ formatSize(dep.size) }}</span>
+              <p-tag
+                style="margin-left: 0.5rem"
+                [value]="
+      dep.sizeLabel === 'small'
+        ? 'Маленький'
+        : dep.sizeLabel === 'medium'
+        ? 'Средний'
+        : dep.sizeLabel === 'large'
+        ? 'Большой'
+        : '—'
+    "
+                [severity]="getSizeSeverity(dep.sizeLabel)"
+              ></p-tag>
+            </td>
+
           </tr>
         </ng-template>
       </p-table>

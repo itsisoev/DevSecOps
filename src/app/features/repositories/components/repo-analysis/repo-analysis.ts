@@ -31,6 +31,7 @@ export class RepoAnalysis implements OnInit {
 
   isLoading = signal<boolean>(false);
   auditResult = signal<AuditResponse>({projectName: '', results: [], message: '', hash: ''});
+  downloadInProgress = signal(false);
   skeletonItems = this.generateSkeletonItems();
 
   ngOnInit() {
@@ -101,4 +102,32 @@ export class RepoAnalysis implements OnInit {
     }));
   }
 
+  downloadPdf() {
+    const owner = this.route.snapshot.paramMap.get('owner');
+    const repo = this.route.snapshot.paramMap.get('repo');
+
+    if (!owner || !repo) {
+      this.messageService.add({severity: 'error', summary: 'Ошибка', detail: 'Некорректный путь'});
+      return;
+    }
+
+    this.downloadInProgress.set(true);
+
+    this.repoService.downloadPackagePdf(owner, repo).pipe(
+      finalize(() => this.downloadInProgress.set(false))
+    ).subscribe({
+      next: (blob) => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `${repo}_audit_report.pdf`;
+        a.click();
+        window.URL.revokeObjectURL(url);
+        this.messageService.add({severity: 'success', summary: 'Готово', detail: 'PDF скачан'});
+      },
+      error: () => {
+        this.messageService.add({severity: 'error', summary: 'Ошибка', detail: 'Не удалось скачать PDF'});
+      }
+    });
+  }
 }

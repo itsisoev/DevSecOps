@@ -7,7 +7,13 @@
         <p-skeleton width="100%" height="3rem" style="margin: 1rem 0"/>
       } @else {
         <h3>Название проекта: {{ auditResult().projectName }}</h3>
-        <p-button label="Скачать PFD" icon="pi pi-download" iconPos="right"/>
+        <p-button
+          label="Скачать PFD"
+          icon="pi pi-download"
+          iconPos="right"
+          [loading]="downloadInProgress()"
+          (click)="downloadPdf()"
+        />
       }
     </div>
     <p-table

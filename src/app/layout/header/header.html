@@ -1,9 +1,17 @@
 <div class="header-container">
   <p-menubar [model]="links()">
-    <div class="header-container__left">
-      <div class="user-profile">
-
+    <div class="header-container__left" style="display: flex; align-items: center;">
+      <div class="user-profile" #avatarButton (click)="menu.toggle($event)" style="cursor: pointer;">
+        <img
+          [src]="avatarUrl()"
+          alt="User Avatar"
+          width="40"
+          height="40"
+          style="border-radius: 50%;"
+        />
       </div>
     </div>
   </p-menubar>
+
+  <p-menu #menu [popup]="true" [model]="profileItem()" [baseZIndex]="1000"></p-menu>
 </div>

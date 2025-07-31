@@ -1,5 +1,10 @@
 <div class="prev-audit">
   <div class="prev-audit__wrapper">
+    <div class="card-header">
+      <h3>Название проекта: {{ auditResponse().projectName }}</h3>
+      <p-button label="Скачать PFD" icon="pi pi-download" iconPos="right"/>
+    </div>
+
     <div class="table">
       <p-table
         [value]="auditResponse().results"

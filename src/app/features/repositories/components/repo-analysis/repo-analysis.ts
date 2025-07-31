@@ -7,6 +7,7 @@ import {TableModule} from 'primeng/table';
 import {Tag} from 'primeng/tag';
 import {Skeleton} from 'primeng/skeleton';
 import {AuditResponse, AuditResult} from '../../../../shared/models/audit.model';
+import {Button} from 'primeng/button';
 
 const SKELETON_ITEMS_COUNT = 10;
 
@@ -15,7 +16,8 @@ const SKELETON_ITEMS_COUNT = 10;
   imports: [
     TableModule,
     Tag,
-    Skeleton
+    Skeleton,
+    Button
   ],
   templateUrl: './repo-analysis.html',
   styleUrl: './repo-analysis.scss',
@@ -28,7 +30,7 @@ export class RepoAnalysis implements OnInit {
   private readonly messageService = inject(MessageService);
 
   isLoading = signal<boolean>(false);
-  auditResult = signal<AuditResponse>({results: [], message: '', hash: ''});
+  auditResult = signal<AuditResponse>({projectName: '', results: [], message: '', hash: ''});
   skeletonItems = this.generateSkeletonItems();
 
   ngOnInit() {

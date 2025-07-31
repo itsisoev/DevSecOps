@@ -2,6 +2,14 @@
   @if (!isLoading() && auditResult().results.length === 0) {
     <div>Нет Package.json</div>
   } @else {
+    <div class="card-header">
+      @if (isLoading()) {
+        <p-skeleton width="100%" height="3rem" style="margin: 1rem 0"/>
+      } @else {
+        <h3>Название проекта: {{ auditResult().projectName }}</h3>
+        <p-button label="Скачать PFD" icon="pi pi-download" iconPos="right"/>
+      }
+    </div>
     <p-table
       [value]="isLoading() ? skeletonItems : auditResult().results"
       [tableStyle]="{ 'min-width': '50rem' }"

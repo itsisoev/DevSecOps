@@ -1,7 +1,7 @@
 <div class="repo-analysis">
-  @if(!isLoading() && auditResult().results.length === 0) {
+  @if (!isLoading() && auditResult().results.length === 0) {
     <div>Нет Package.json</div>
-  }@else {
+  } @else {
     <p-table
       [value]="isLoading() ? skeletonItems : auditResult().results"
       [tableStyle]="{ 'min-width': '50rem' }"
@@ -13,6 +13,7 @@
           <th>Последняя версия</th>
           <th>Нужен апдейт</th>
           <th>Статус</th>
+          <th>Размер</th>
         </tr>
       </ng-template>
 
@@ -34,6 +35,24 @@
                 [severity]="getStatusSeverity(dep.status)"
               />
             </td>
+            <td>
+  <span>
+    {{ formatSize(dep.size) }}
+  </span>
+              <p-tag
+                style="margin-left: 0.5rem"
+                [value]="
+      dep.sizeLabel === 'small'
+        ? 'Маленький'
+        : dep.sizeLabel === 'medium'
+        ? 'Средний'
+        : dep.sizeLabel === 'large'
+        ? 'Большой'
+        : '—'
+    "
+                [severity]="getSizeSeverity(dep.sizeLabel)"
+              />
+            </td>
           </tr>
         } @else {
           <tr>
@@ -51,6 +70,9 @@
             </td>
             <td>
               <p-skeleton height="1.5rem" width="90%"></p-skeleton>
+            </td>
+            <td>
+              <p-skeleton height="1.5rem" width="100%"></p-skeleton>
             </td>
           </tr>
         }

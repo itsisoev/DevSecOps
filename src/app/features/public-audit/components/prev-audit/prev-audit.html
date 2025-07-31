@@ -8,12 +8,47 @@
       >
         <ng-template pTemplate="header">
           <tr>
-            <th>Название</th>
-            <th>Текущая версия</th>
-            <th>Последняя версия</th>
-            <th>Нужен апдейт</th>
-            <th>Статус</th>
-            <th>Размер</th>
+            <th pSortableColumn="name">
+              <div class="flex items-center gap-2">
+                Название
+                <p-sortIcon field="name"/>
+              </div>
+            </th>
+
+            <th pSortableColumn="version">
+              <div class="flex items-center gap-2">
+                Текущая версия
+                <p-sortIcon field="version"/>
+              </div>
+            </th>
+
+            <th pSortableColumn="latestVersion">
+              <div class="flex items-center gap-2">
+                Последняя версия
+                <p-sortIcon field="latestVersion"/>
+              </div>
+            </th>
+
+            <th pSortableColumn="needsUpdate">
+              <div class="flex items-center gap-2">
+                Нужен апдейт
+                <p-sortIcon field="needsUpdate"/>
+              </div>
+            </th>
+
+            <th pSortableColumn="status">
+              <div class="flex items-center gap-2">
+                Статус
+                <p-sortIcon field="status"/>
+              </div>
+            </th>
+
+            <th pSortableColumn="size">
+              <div class="flex items-center gap-2">
+                Размер
+                <p-sortIcon field="size"/>
+              </div>
+            </th>
           </tr>
         </ng-template>
 

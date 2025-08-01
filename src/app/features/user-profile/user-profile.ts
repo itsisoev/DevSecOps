@@ -11,7 +11,4 @@ import {toSignal} from '@angular/core/rxjs-interop';
 })
 export class UserProfile {
   private readonly userProfileService = inject(UserProfileService);
-
-
-
 }

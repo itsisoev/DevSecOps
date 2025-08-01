@@ -11,6 +11,7 @@ import {curveLinear} from 'd3-shape';
 import {ActivatedRoute} from '@angular/router';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
 import {Loader} from '../../shared/components/loader/loader';
+import {firstValueFrom} from 'rxjs';
 
 function safeId(id: string): string {
   return id.replace(/[^a-zA-Z0-9_-]/g, '_');
@@ -46,7 +47,7 @@ export class DependencyGraph implements OnInit {
     this.isLoading.set(true);
 
     try {
-      const graph = await this.graphService.getDependencyGraph(owner, repo).toPromise();
+      const graph = await firstValueFrom(this.graphService.getDependencyGraph(owner, repo));
       if (graph) {
         this.transformGraph(graph);
       }

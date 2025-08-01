@@ -8,6 +8,7 @@ import {Tag} from 'primeng/tag';
 import {Skeleton} from 'primeng/skeleton';
 import {AuditResponse, AuditResult} from '../../../../shared/models/audit.model';
 import {Button} from 'primeng/button';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 const SKELETON_ITEMS_COUNT = 10;
 
@@ -28,6 +29,7 @@ export class RepoAnalysis implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly repoService = inject(RepositoriesService);
   private readonly messageService = inject(MessageService);
+  private readonly destroyRef = inject(DestroyRef);
 
   isLoading = signal<boolean>(false);
   auditResult = signal<AuditResponse>({projectName: '', results: [], message: '', hash: ''});
@@ -46,7 +48,10 @@ export class RepoAnalysis implements OnInit {
     this.isLoading.set(true);
 
     this.repoService.analyzeRepoPackage(owner, repo)
-      .pipe(finalize(() => this.isLoading.set(false)))
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        finalize(() => this.isLoading.set(false))
+      )
       .subscribe({
         next: (res) => {
           this.auditResult.set(res);
@@ -114,6 +119,7 @@ export class RepoAnalysis implements OnInit {
     this.downloadInProgress.set(true);
 
     this.repoService.downloadPackagePdf(owner, repo).pipe(
+      takeUntilDestroyed(this.destroyRef),
       finalize(() => this.downloadInProgress.set(false))
     ).subscribe({
       next: (blob) => {

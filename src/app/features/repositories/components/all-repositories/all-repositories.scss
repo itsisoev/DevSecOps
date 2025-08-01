@@ -1,12 +1,12 @@
 .all-repositories-container {
   margin-top: 1.5rem;
 
-  td {
-    cursor: pointer;
-  }
-
   tr:hover {
     background-color: var(--surface-hover);
     transition: background-color 0.2s ease-in-out;
+  }
+
+  .btn-td {
+    margin: 0 0.3125rem;
   }
 }

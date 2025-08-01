@@ -19,7 +19,7 @@
             <p-sortIcon field="private"/>
           </div>
         </th>
-        <th  pSortableColumn="language">
+        <th pSortableColumn="language">
           <div class="flex items-center gap-2">
             Язык
             <p-sortIcon field="language"/>
@@ -31,17 +31,25 @@
             <p-sortIcon field="owner.login"/>
           </div>
         </th>
+        <th>
+          Анализ
+        </th>
       </tr>
     </ng-template>
 
     <ng-template pTemplate="body" let-repo>
       @if (!isLoading()) {
-        <tr (click)="onRepoClick(repo)">
+        <tr>
           <td>{{ repo.name }}</td>
           <td>{{ repo.full_name }}</td>
           <td>{{ repo.private ? 'Да' : 'Нет' }}</td>
           <td>{{ repo.language }}</td>
           <td>{{ repo.owner.login }}</td>
+
+          <td>
+            <p-button class="btn-td" icon="pi pi-list-check" severity="secondary" (click)="onRepoClick(repo)"/>
+            <p-button class="btn-td" icon="pi pi-box" severity="secondary" (onClick)="onDependencyGraph(repo)"/>
+          </td>
         </tr>
       } @else {
         <tr>
@@ -56,6 +64,9 @@
           </td>
           <td>
             <p-skeleton height="1.5rem" width="70%"></p-skeleton>
+          </td>
+          <td>
+            <p-skeleton height="1.5rem" width="90%"></p-skeleton>
           </td>
           <td>
             <p-skeleton height="1.5rem" width="90%"></p-skeleton>

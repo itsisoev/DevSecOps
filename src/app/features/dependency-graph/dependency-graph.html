@@ -1,0 +1,38 @@
+@if (isLoading()) {
+  <uc-loader/>
+} @else {
+  <div class="dependency-graph-container">
+    <ngx-graph
+      [nodes]="nodes()"
+      [links]="links()"
+      layout="dagre"
+      [enableZoom]="true"
+      [zoomLevel]="1"
+      [panOnZoom]="true"
+      [autoZoom]="false"
+      [showMiniMap]="true"
+      [curve]="curve"
+      style="height: 100%; width: 100%">
+      <ng-template #nodeTemplate let-node>
+        <svg:g class="node">
+          <svg:rect
+            width="150"
+            height="40"
+            fill="#3f51b5"
+            rx="5"
+            ry="5"/>
+          <svg:text
+            x="75"
+            y="20"
+            text-anchor="middle"
+            dominant-baseline="middle"
+            fill="white"
+            font-size="12">
+            {{ node.label }}
+          </svg:text>
+        </svg:g>
+      </ng-template>
+
+    </ngx-graph>
+  </div>
+}

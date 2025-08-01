@@ -1,8 +1,9 @@
-import {ChangeDetectionStrategy, Component, inject, signal} from '@angular/core';
+import {ChangeDetectionStrategy, Component, DestroyRef, inject, signal} from '@angular/core';
 import {PublicAuditService} from '../../service/public-audit';
 import {Router} from '@angular/router';
 import {Button} from 'primeng/button';
 import {AuditResult} from '../../../../shared/models/audit.model';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'features-public-audit-upload',
@@ -16,6 +17,7 @@ import {AuditResult} from '../../../../shared/models/audit.model';
 export class PublicAuditUpload {
   private readonly auditService = inject(PublicAuditService)
   private readonly router = inject(Router);
+  private readonly destroyRef = inject(DestroyRef);
 
   auditResponse = signal<{ hash: string; message: string; results: AuditResult[] }>({
     hash: '',
@@ -47,15 +49,19 @@ export class PublicAuditUpload {
       results: []
     });
 
-    this.auditService.checkPackage(selectedFile).subscribe({
-      next: (res) => {
-        this.auditResponse.set(res);
-        this.isLoading.set(false);
-        this.router.navigate(['/public-audit', res.hash]);
-      },
-      error: () => {
-        this.isLoading.set(false);
-      },
-    });
+    this.auditService.checkPackage(selectedFile)
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+      )
+      .subscribe({
+        next: (res) => {
+          this.auditResponse.set(res);
+          this.isLoading.set(false);
+          this.router.navigate(['/public-audit', res.hash]);
+        },
+        error: () => {
+          this.isLoading.set(false);
+        },
+      });
   }
 }

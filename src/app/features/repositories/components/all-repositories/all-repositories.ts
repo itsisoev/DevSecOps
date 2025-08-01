@@ -7,12 +7,13 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {Skeleton} from 'primeng/skeleton';
 import {catchError, finalize, of} from 'rxjs';
 import {Router} from '@angular/router';
+import {Button} from 'primeng/button';
 
 const SKELETON_ITEMS_COUNT = 10;
 
 @Component({
   selector: 'features-all-repositories',
-  imports: [PrimeTemplate, TableModule, Toast, Skeleton],
+  imports: [PrimeTemplate, TableModule, Toast, Skeleton, Button],
   templateUrl: './all-repositories.html',
   styleUrl: './all-repositories.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -64,6 +65,12 @@ export class AllRepositories implements OnInit {
     const {owner, name} = repo;
     this.router.navigate(['repositories', 'analyze', owner.login, name]);
   }
+
+  onDependencyGraph(repo: GithubRepo) {
+    const {owner, name} = repo;
+    this.router.navigate(['dependency-graph', owner.login, name]);
+  }
+
 
   private generateSkeletonItems(): GithubRepo[] {
     return Array.from({length: SKELETON_ITEMS_COUNT}, () => ({

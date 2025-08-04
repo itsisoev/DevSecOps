@@ -52,7 +52,7 @@
 
 ### 1. Клонировать репозиторий
 ```bash
-git clone https://github.com/your-username/DevSecOps.git
+git clone https://github.com/itsisoev/DevSecOps.git
 cd DevSecOps
 ````
 

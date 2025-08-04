@@ -1,59 +1,156 @@
-# Frontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.0.0.
+# 🚀 DevSecOps — GitHub Dependency Analyzer & Architecture Visualizer
 
-## Development server
+![GitHub Repo Size](https://img.shields.io/github/repo-size/itsisoev/DevSecOps?style=for-the-badge)
+![GitHub Stars](https://img.shields.io/github/stars/itsisoev/DevSecOps?style=for-the-badge)
+![GitHub Forks](https://img.shields.io/github/forks/itsisoev/DevSecOps?style=for-the-badge)
+![License](https://img.shields.io/github/license/itsisoev/DevSecOps?style=for-the-badge)
 
-To start a local development server, run:
+> **DevSecOps** — Платформа для анализа зависимостей и визуализации архитектуры ваших репозиториев на GitHub. Безопасная авторизация, детальный аудит зависимостей и интерактивные графы связей модулей.
+
+---
+
+## ✨ Основные возможности
+
+### 🔑 GitHub OAuth авторизация
+- Быстрый и безопасный вход через GitHub.
+- В базе сохраняется только:
+  - Имя пользователя
+  - Email
+  - Аватар
+  - Токен для получения репозиториев через API
+- Репозитории НЕ сохраняются в базу данных.
+
+### 📦 Анализ зависимостей (Dependency Audit)
+- Текущая и последняя версии каждой зависимости.
+- Размеры библиотек в KB/MB.
+- Рекомендации: обновлять или оставить как есть.
+- Быстрый анализ по `package.json` без авторизации.
+
+### 🕸️ Архитектурный граф зависимостей (Architecture Graph)
+- Визуализация связей:
+  - Компонентов
+  - Сервисов
+  - Модулей и других сущностей проекта.
+- Помогает быстро понять структуру и взаимосвязи.
+
+### ⚡️ Angular Features
+- Используется:
+  - `signal`
+  - `DestroyRef`
+  - `ChangeDetectionStrategy.OnPush`
+- Высокая производительность и реактивность.
+
+### 🎨 UI с помощью PrimeNG
+- Используется мощный UI Kit — **PrimeNG**.
+- Готовые компоненты: таблицы, графики, модальные окна, карточки и многое другое.
+- Красивый дизайн и отзывчивость "из коробки".
+
+---
+
+## 🛠️ Установка и запуск
+
+### 1. Клонировать репозиторий
+```bash
+git clone https://github.com/your-username/DevSecOps.git
+cd DevSecOps
+````
+
+### 2. Установить зависимости фронтенда
 
 ```bash
-ng serve
+npm install
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### 3. Установить PrimeNG и PrimeIcons
 
 ```bash
-ng generate component component-name
+npm install primeng primeicons
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+### 4. Настроить стили PrimeNG
+
+В файле **angular.json** добавь стили:
+
+```json
+"styles": [
+  "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
+  "node_modules/primeng/resources/primeng.min.css",
+  "node_modules/primeicons/primeicons.css",
+  "src/styles.css"
+]
+```
+
+### 5. Настроить .env файл для работы с бекендом
+
+Создай файл `.env`:
+
+```env
+VITE_API_URL=http://localhost:3000
+GITHUB_CLIENT_ID=your_client_id
+GITHUB_CLIENT_SECRET=your_client_secret
+```
+
+### 6. Запустить фронтенд
 
 ```bash
-ng generate --help
+npm run start
 ```
 
-## Building
+### 7. Запустить бекенд
 
-To build the project run:
+Бекенд-репозиторий тут 👉 [NestJS-DevSecOps](https://github.com/itsisoev/NestJS-DevSecOps)
 
 ```bash
-ng build
+cd path/to/NestJS-DevSecOps
+npm install
+npm run start:dev
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+---
 
-## Running unit tests
+## 🛡️ Политика безопасности
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+* Репозитории не сохраняются в БД.
+* Храним только необходимые данные для авторизации.
+* Анализ зависимостей происходит в реальном времени.
+* Передача данных безопасна.
 
-```bash
-ng test
-```
+---
 
-## Running end-to-end tests
+## 🗺️ Roadmap (Дорожная карта)
 
-For end-to-end (e2e) testing, run:
+* [ ] Security Audit (Проверка уязвимостей)
+* [ ] Поддержка Bitbucket и GitLab
+* [ ] Экспорт отчёта в PDF
+* [ ] Расширенная визуализация архитектуры (SVG Export)
 
-```bash
-ng e2e
-```
+---
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## 🤝 Как внести вклад?
 
-## Additional Resources
+1. Сделай форк 🍴
+2. Создай ветку (`git checkout -b feature/YourFeature`)
+3. Сделай коммит (`git commit -m 'Add feature'`)
+4. Сделай push (`git push origin feature/YourFeature`)
+5. Создай Pull Request
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+---
+
+## 🧑‍💻 Автор
+
+* [Далер Исоев](https://github.com/itsisoev)
+
+---
+
+## 📄 Лицензия
+
+MIT License. Подробности в файле [LICENSE](LICENSE).
+
+---
+
+## ⭐️ Поддержи проект звездой!
+
+Если тебе понравился проект — ставь ⭐️, для меня это важно!
+
+---

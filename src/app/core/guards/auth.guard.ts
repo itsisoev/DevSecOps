@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {
   CanActivate,
   Router,
@@ -7,23 +7,26 @@ import {
   UrlTree,
 } from '@angular/router';
 import {Observable} from 'rxjs';
+import {AuthService} from '../../features/auth/service/auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-  constructor(private router: Router) {
-  }
+  private readonly authService = inject(AuthService);
+  private readonly router = inject(Router);
+
 
   canActivate(
     route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot,
+    state: RouterStateSnapshot
   ): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
-    const token = localStorage.getItem('access_token');
+    const token = this.authService.getToken();
 
-    if (token) {
-      return true;
+    if (!token || this.authService.isTokenExpired(token)) {
+      this.authService.logout();
+      return this.router.createUrlTree(['/auth']);
     }
-    return this.router.createUrlTree(['/auth']);
+    return true;
   }
 }

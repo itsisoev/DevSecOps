@@ -2,7 +2,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
-  DestroyRef,
   inject,
   OnInit,
   signal
@@ -11,6 +10,7 @@ import {Menubar} from 'primeng/menubar';
 import {MenuItem} from 'primeng/api';
 import {Menu} from 'primeng/menu';
 import {UserProfileService} from '../../features/user-profile/service/user-profile';
+import {AuthService} from '../../features/auth/service/auth.service';
 
 @Component({
   selector: 'layout-header',
@@ -25,7 +25,7 @@ import {UserProfileService} from '../../features/user-profile/service/user-profi
 })
 export class Header implements OnInit {
   private readonly userProfileService = inject(UserProfileService);
-  private readonly destroyRef = inject(DestroyRef);
+  private readonly authService = inject(AuthService);
 
   links = signal<MenuItem[]>([
     {
@@ -82,9 +82,7 @@ export class Header implements OnInit {
     this.userProfileService.getUserProfile();
   }
 
-  openProfile() {
-  }
-
   logout() {
+    this.authService.logout();
   }
 }

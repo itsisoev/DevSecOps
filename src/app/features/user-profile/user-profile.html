@@ -1,4 +1,10 @@
-<div >
+<div class="user-profile">
+  <div class="user-profile__image">
+    <img [src]="userProfile()?.photos" alt="User Photo">
+  </div>
 
+  <div class="user-profile__user-info">
+    <h2>Эл.почта: <span>{{ userProfile()?.emails }}</span></h2>
+    <h2>Имя пользователя: <span>{{ userProfile()?.username }}</span></h2>
+  </div>
 </div>
-

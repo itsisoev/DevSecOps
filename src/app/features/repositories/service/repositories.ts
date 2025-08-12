@@ -2,15 +2,7 @@ import {inject, Injectable} from '@angular/core';
 import {environment} from '../../../../environments/environment.development';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-
-export interface GithubRepo {
-  name: string;
-  full_name: string;
-  private: boolean;
-  owner: {
-    login: string;
-  };
-}
+import {GithubRepo} from '../../../shared/models/repository.model';
 
 @Injectable({
   providedIn: 'root'

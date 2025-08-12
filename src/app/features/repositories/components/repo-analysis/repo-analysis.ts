@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit, signal} from '@angular/core';
-import {GithubRepo, RepositoriesService} from '../../service/repositories';
+import {RepositoriesService} from '../../service/repositories';
 import {MessageService} from 'primeng/api';
 import {ActivatedRoute} from '@angular/router';
 import {finalize} from 'rxjs';

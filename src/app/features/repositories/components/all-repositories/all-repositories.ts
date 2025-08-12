@@ -2,12 +2,13 @@ import {ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit, signal} 
 import {MessageService, PrimeTemplate} from 'primeng/api';
 import {TableModule} from 'primeng/table';
 import {Toast} from 'primeng/toast';
-import {GithubRepo, RepositoriesService} from '../../service/repositories';
+import {RepositoriesService} from '../../service/repositories';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {Skeleton} from 'primeng/skeleton';
 import {catchError, finalize, of} from 'rxjs';
 import {Router} from '@angular/router';
 import {Button} from 'primeng/button';
+import {GithubRepo} from '../../../../shared/models/repository.model';
 
 const SKELETON_ITEMS_COUNT = 10;
 

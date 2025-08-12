@@ -1,1 +1,45 @@
-<uc-empty-state/>
+@if (isLoading()) {
+  <uc-loader/>
+} @else if (notifications().length === 0) {
+  <uc-empty-state/>
+} @else {
+  <ul class="notification-list">
+    @for (notification of notifications(); track notification) {
+      <li  class="notification-list__item">
+        <img
+          [src]="notification.ownerAvatarUrl"
+          alt="{{notification.ownerLogin}}"
+          class="notification-list__owner-avatar"
+          [title]="notification.ownerLogin"
+          width="40"
+          height="40"
+        />
+        <div class="notification-list__content">
+            <span
+              class="notification-list__title"
+            >
+              {{ notification.title }}
+            </span>
+
+          <div class="notification-list__repo">
+            Репозиторий:
+            <a
+              [href]="notification.repoUrl"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="repo-link"
+            >
+              {{ notification.repoName }}
+            </a>
+          </div>
+
+          <div class="notification-list__meta">
+            <span class="notification-list__type">{{ notification.type }}</span> |
+            <span class="notification-list__reason">{{ notification.reason }}</span> |
+            <span class="notification-list__date">{{ notification.updatedAt | date:'short' }}</span>
+          </div>
+        </div>
+      </li>
+    }
+  </ul>
+}

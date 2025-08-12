@@ -1,0 +1,65 @@
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 85vh;
+  padding: 3rem 1.5rem;
+  color: #5a5a5a;
+  text-align: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+
+  &__icon {
+    font-size: 6rem;
+    color: #3f51b5;
+    margin-bottom: 1.2rem;
+    animation: pulse 2.5s infinite ease-in-out;
+  }
+
+  &__title {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 0.6rem;
+    color: #2c3e50;
+  }
+
+  &__subtitle {
+    font-size: 1.1rem;
+    color: #7a7a7a;
+    max-width: 320px;
+  }
+
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.6;
+      transform: scale(1.05);
+    }
+  }
+
+  @media (max-width: 480px) {
+    padding: 2rem 1rem;
+    max-width: 95vw;
+
+    &__icon {
+      font-size: 4.5rem;
+      margin-bottom: 1rem;
+    }
+
+    &__title {
+      font-size: 1.5rem;
+      margin-bottom: 0.4rem;
+    }
+
+    &__subtitle {
+      font-size: 1rem;
+      max-width: 100%;
+    }
+  }
+}

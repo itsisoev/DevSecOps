@@ -41,13 +41,13 @@ export class Header implements OnInit {
           label: 'Все репозитории',
           icon: 'pi pi-server',
           routerLink: '/repositories',
-        },
-        {
-          label: 'Избранные репозитории',
-          icon: 'pi pi-star',
-          routerLink: '/repositories/favorites'
-        },
+        }
       ],
+    },
+    {
+      label: 'Уведомление',
+      icon: 'pi pi-bell',
+      routerLink: '/notification',
     }
   ]);
 

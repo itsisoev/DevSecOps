@@ -19,6 +19,12 @@ export const routes: Routes = [
       import('./features/auth/components/login-success/login-success').then(m => m.LoginSuccess)
   },
   {
+    canActivate: [AuthGuard],
+    path: 'notification',
+    loadComponent: () =>
+      import('./features/notification/notification').then(m => m.Notification)
+  },
+  {
     path: '',
     children: [
       {

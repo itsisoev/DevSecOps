@@ -15,6 +15,7 @@ import {TableModule} from 'primeng/table';
 import {Tag} from 'primeng/tag';
 import {Toast} from 'primeng/toast';
 import {Button} from 'primeng/button';
+import {BaseAuditComponent} from '../../../../shared/base/base-audit.component';
 
 @Component({
   selector: 'app-prev-audit',
@@ -30,20 +31,9 @@ import {Button} from 'primeng/button';
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [MessageService]
 })
-export class PrevAudit implements OnInit {
+export class PrevAudit extends BaseAuditComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly auditService = inject(PublicAuditService);
-  private readonly toast = inject(MessageService);
-  private readonly destroyRef = inject(DestroyRef);
-
-  auditResponse = signal<AuditResponse>({
-    hash: '',
-    message: '',
-    results: [],
-    projectName: '',
-  });
-
-  isLoading = signal(false);
 
   ngOnInit(): void {
     this.loadAudit();
@@ -53,8 +43,7 @@ export class PrevAudit implements OnInit {
     const hash = this.route.snapshot.paramMap.get('hash');
 
     if (!hash) {
-      this.toast.add({severity: 'error', summary: 'Ошибка', detail: 'Хэш не найден в URL'});
-      this.isLoading.set(false);
+      this.handleError('Хэш не найден в URL');
       return;
     }
 
@@ -66,50 +55,9 @@ export class PrevAudit implements OnInit {
         next: (res) => {
           this.auditResponse.set(res);
           this.isLoading.set(false);
-          this.toast.add({severity: 'success', summary: 'Успех', detail: 'Данные успешно получены'});
+          this.handleSuccess('Данные успешно получены');
         },
-        error: () => {
-          this.toast.add({severity: 'error', summary: 'Ошибка', detail: 'Ошибка получения данных'});
-          this.isLoading.set(false);
-        },
+        error: () => this.handleError('Ошибка получения данных'),
       });
-  }
-
-  getStatusSeverity(status: string): 'success' | 'warning' | 'danger' {
-    switch (status) {
-      case 'safe':
-        return 'success';
-      case 'updateRecommended':
-        return 'warning';
-      case 'vulnerable':
-        return 'danger';
-      default:
-        return 'warning';
-    }
-  }
-
-  formatSize(size?: number): string {
-    if (!size) return '—';
-    const kb = size / 1024;
-    return kb > 1024
-      ? `${(kb / 1024).toFixed(2)} MB`
-      : `${kb.toFixed(1)} KB`;
-  }
-
-  getSizeSeverity(label?: string): 'success' | 'warning' | 'danger' {
-    switch (label) {
-      case 'small':
-        return 'success';
-      case 'medium':
-        return 'warning';
-      case 'large':
-        return 'danger';
-      default:
-        return 'warning';
-    }
-  }
-
-  trackByIndex(index: number): number {
-    return index;
   }
 }

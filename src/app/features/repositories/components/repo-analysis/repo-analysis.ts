@@ -9,6 +9,7 @@ import {Skeleton} from 'primeng/skeleton';
 import {AuditResponse, AuditResult} from '../../../../shared/models/audit.model';
 import {Button} from 'primeng/button';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import {BaseAuditComponent} from '../../../../shared/base/base-audit.component';
 
 const SKELETON_ITEMS_COUNT = 10;
 
@@ -25,13 +26,11 @@ const SKELETON_ITEMS_COUNT = 10;
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [MessageService],
 })
-export class RepoAnalysis implements OnInit {
+export class RepoAnalysis extends BaseAuditComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly repoService = inject(RepositoriesService);
   private readonly messageService = inject(MessageService);
-  private readonly destroyRef = inject(DestroyRef);
 
-  isLoading = signal<boolean>(false);
   auditResult = signal<AuditResponse>({projectName: '', results: [], message: '', hash: ''});
   downloadInProgress = signal(false);
   skeletonItems = this.generateSkeletonItems();
@@ -41,10 +40,41 @@ export class RepoAnalysis implements OnInit {
     const repo = this.route.snapshot.paramMap.get('repo');
 
     if (!owner || !repo) {
-      this.messageService.add({severity: 'error', summary: 'Ошибка', detail: 'Некорректный путь'});
+      this.handleError('Некорректный путь');
       return;
     }
 
+    this.loadRepoAudit(owner, repo);
+  }
+
+  downloadPdf() {
+    const owner = this.route.snapshot.paramMap.get('owner');
+    const repo = this.route.snapshot.paramMap.get('repo');
+
+    if (!owner || !repo) {
+      this.handleError('Некорректный путь');
+      return;
+    }
+
+    this.downloadInProgress.set(true);
+
+    this.repoService.downloadPackagePdf(owner, repo)
+      .pipe(takeUntilDestroyed(this.destroyRef), finalize(() => this.downloadInProgress.set(false)))
+      .subscribe({
+        next: (blob) => {
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = `${repo}_audit_report.pdf`;
+          a.click();
+          window.URL.revokeObjectURL(url);
+          this.handleSuccess('PDF скачан');
+        },
+        error: () => this.handleError('Не удалось скачать PDF')
+      });
+  }
+
+  private loadRepoAudit(owner: string, repo: string) {
     this.isLoading.set(true);
 
     this.repoService.analyzeRepoPackage(owner, repo)
@@ -55,46 +85,10 @@ export class RepoAnalysis implements OnInit {
       .subscribe({
         next: (res) => {
           this.auditResult.set(res);
-          this.messageService.add({severity: 'success', summary: 'Готово', detail: 'Зависимости проанализированы'});
+          this.handleSuccess('Зависимости проанализированы');
         },
-        error: () => {
-          this.messageService.add({severity: 'error', summary: 'Ошибка', detail: 'Не удалось получить данные'});
-        }
+        error: () => this.handleError('Не удалось получить данные')
       });
-  }
-
-  getStatusSeverity(status: string): 'success' | 'warning' | 'danger' {
-    switch (status) {
-      case 'safe':
-        return 'success';
-      case 'updateRecommended':
-        return 'warning';
-      case 'vulnerable':
-        return 'danger';
-      default:
-        return 'warning';
-    }
-  }
-
-  formatSize(size?: number): string {
-    if (!size) return '—';
-    const kb = size / 1024;
-    return kb > 1024
-      ? `${(kb / 1024).toFixed(2)} MB`
-      : `${kb.toFixed(1)} KB`;
-  }
-
-  getSizeSeverity(label?: string): 'success' | 'warning' | 'danger' {
-    switch (label) {
-      case 'small':
-        return 'success';
-      case 'medium':
-        return 'warning';
-      case 'large':
-        return 'danger';
-      default:
-        return 'warning';
-    }
   }
 
   private generateSkeletonItems(): AuditResult[] {
@@ -105,35 +99,5 @@ export class RepoAnalysis implements OnInit {
       latestVersion: '',
       status: 'safe'
     }));
-  }
-
-  downloadPdf() {
-    const owner = this.route.snapshot.paramMap.get('owner');
-    const repo = this.route.snapshot.paramMap.get('repo');
-
-    if (!owner || !repo) {
-      this.messageService.add({severity: 'error', summary: 'Ошибка', detail: 'Некорректный путь'});
-      return;
-    }
-
-    this.downloadInProgress.set(true);
-
-    this.repoService.downloadPackagePdf(owner, repo).pipe(
-      takeUntilDestroyed(this.destroyRef),
-      finalize(() => this.downloadInProgress.set(false))
-    ).subscribe({
-      next: (blob) => {
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `${repo}_audit_report.pdf`;
-        a.click();
-        window.URL.revokeObjectURL(url);
-        this.messageService.add({severity: 'success', summary: 'Готово', detail: 'PDF скачан'});
-      },
-      error: () => {
-        this.messageService.add({severity: 'error', summary: 'Ошибка', detail: 'Не удалось скачать PDF'});
-      }
-    });
   }
 }

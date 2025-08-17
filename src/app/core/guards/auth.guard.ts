@@ -17,10 +17,7 @@ export class AuthGuard implements CanActivate {
   private readonly router = inject(Router);
 
 
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
+  canActivate(): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
     const token = this.authService.getToken();
 
     if (!token || this.authService.isTokenExpired(token)) {

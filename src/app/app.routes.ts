@@ -1,5 +1,4 @@
 import {Routes} from '@angular/router';
-import {LoginSuccess} from './features/auth/components/login-success/login-success';
 import {AuthGuard} from './core/guards/auth.guard';
 
 export const routes: Routes = [

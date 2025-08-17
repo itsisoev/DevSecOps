@@ -1,7 +1,7 @@
-import {ChangeDetectionStrategy, Component, signal} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, signal} from '@angular/core';
 import {Button} from 'primeng/button';
 import {RouterLink} from '@angular/router';
-import { trigger, transition, style, animate } from '@angular/animations';
+import {trigger, transition, style, animate} from '@angular/animations';
 import {MessageService, PrimeTemplate} from 'primeng/api';
 import {Message} from 'primeng/message';
 import {Listbox} from 'primeng/listbox';
@@ -31,21 +31,23 @@ interface IText {
   animations: [
     trigger('fadeInUp', [
       transition(':enter', [
-        style({ opacity: 0, transform: 'translateY(20px)' }),
-        animate('0.8s ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
+        style({opacity: 0, transform: 'translateY(20px)'}),
+        animate('0.8s ease-out', style({opacity: 1, transform: 'translateY(0)'}))
       ])
     ])
   ],
   providers: [MessageService]
 })
 export class Landing {
+  private readonly toastService = inject(MessageService);
   features = signal<IText[]>([
-    { label: 'Какие зависимости требуют обновления', icon: 'pi pi-check-circle', color: '#4CAF50' },
-    { label: 'Какие версии устарели или несовместимы', icon: 'pi pi-exclamation-triangle', color: '#FFC107' },
-    { label: 'Есть ли известные уязвимости в зависимостях', icon: 'pi pi-shield', color: '#F44336' }
+    {label: 'Какие зависимости требуют обновления', icon: 'pi pi-check-circle', color: '#4CAF50'},
+    {label: 'Какие версии устарели или несовместимы', icon: 'pi pi-exclamation-triangle', color: '#FFC107'},
+    {label: 'Есть ли известные уязвимости в зависимостях', icon: 'pi pi-shield', color: '#F44336'}
   ]);
 
-  constructor(private toastService: MessageService) {}
+  constructor() {
+  }
 
   showInfo() {
     this.toastService.add({

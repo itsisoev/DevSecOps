@@ -23,7 +23,7 @@ jobs:
         run: npm ci
 
       - name: Run lint
-        run: npm run lint -- --format stylish || true
+        run: npm run lint -- --format stylish --max-warnings=0
 
   build-and-test:
     name: Build and Test

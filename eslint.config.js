@@ -14,20 +14,13 @@ module.exports = tseslint.config(
     ],
     processor: angular.processInlineTemplates,
     rules: {
+      "@typescript-eslint/no-unused-vars": "warn",
+      "@typescript-eslint/no-explicit-any": "warn",
       "@angular-eslint/directive-selector": [
         "error",
-        {
-          type: "attribute",
-          prefix: "app",
-          style: "camelCase",
-        },
+        {type: "attribute", prefix: "app", style: "camelCase"}
       ],
-      rules: {
-        "@typescript-eslint/no-unused-vars": "warn",
-        "@typescript-eslint/no-explicit-any": "warn",
-        "@angular-eslint/directive-selector": ["error", { type: "attribute", prefix: "app", style: "camelCase" }],
-        "@angular-eslint/component-selector": "off"
-      }
+      "@angular-eslint/component-selector": "off"
     },
   },
   {

@@ -16,7 +16,10 @@ module.exports = tseslint.config(
     rules: {
       "@typescript-eslint/no-unused-vars": "warn",
       "@typescript-eslint/no-explicit-any": "warn",
-      "@angular-eslint/directive-selector": ["error", {type: "attribute", prefix: "app", style: "camelCase"}],
+      "@angular-eslint/directive-selector": [
+        "error",
+        {type: "attribute", prefix: "app", style: "camelCase"}
+      ],
       "@angular-eslint/component-selector": "off"
     },
   },
